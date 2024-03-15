@@ -17,6 +17,8 @@ app.get("/", (req, res) => {
 });
 app.get("/state", Controller.getState);
 app.post("/update", Controller.setState);
+app.post("/test", Controller.testArduino);
+
 mongoose.connection.once("open", () => {
   console.log("connected to mongoDB");
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

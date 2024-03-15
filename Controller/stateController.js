@@ -34,4 +34,9 @@ const setState = async (req, res) => {
       });
   } catch {}
 };
-module.exports = { getState, setState };
+
+const testArduino = async (req, res) => {
+  console.log(req.body);
+  res.status(200).send({message: "done"});
+};
+module.exports = { getState, setState, testArduino };
