@@ -3,8 +3,16 @@ const State = require("../models/state");
 const getState = async (req, res) => {
   try {
     const states = await State.find().lean();
-    console.log(states);
-    res.status(200).send({ message: states });
+    const data = states.map((state, i) => {
+      return {
+        device_id: state.device_id,
+        state: state.state,
+        command: state.command,
+      };
+    });
+    console.log(data);
+    const responseData = { device_state: data };
+    res.status(200).send(responseData);
   } catch {}
 };
 
@@ -37,6 +45,6 @@ const setState = async (req, res) => {
 
 const testArduino = async (req, res) => {
   console.log(req.body);
-  res.status(200).send({message: "done"});
+  res.status(200).send({ message: "done" });
 };
 module.exports = { getState, setState, testArduino };
