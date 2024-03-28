@@ -17,6 +17,7 @@ const getState = async (req, res) => {
 };
 
 const setState = async (req, res) => {
+  console.log(req.body);
   try {
     const { device_id, command } = req.body;
     if (!device_id) {
@@ -30,7 +31,7 @@ const setState = async (req, res) => {
     const response = await State.findOneAndUpdate(
       { device_id },
       {
-        state: device_id == D_400 ? command == 0 ? 101 : 103 : device_id == D_401 ? command == 0 ? 102 : 104 : device_id == D_402 ? command == 0 ? 0 : 1 : "",
+        state: command == 0 ? 101 : 103,
         command,
       }
     )
