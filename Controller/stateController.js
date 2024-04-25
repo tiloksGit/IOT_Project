@@ -28,19 +28,52 @@ const setState = async (req, res) => {
       res.status(404).status({ message: "device not found" });
       return;
     }
-    const response = await State.findOneAndUpdate(
-      { device_id },
-      {
-        state: command == 0 ? 101 : 103,
-        command,
-      }
-    )
-      .then((response) => {
-        res.status(201).send({ message: "state updated" });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const response = await State.findOne({ device_id });
+    if (!response) {
+      res.status(404).send({ message: "No such device found" });
+    }
+    if (device_id == "D_400")
+      await State.findOneAndUpdate(
+        { device_id },
+        {
+          state: command == 0 ? 101 : 103,
+          command,
+        }
+      )
+        .then((response) => {
+          res.status(201).send({ message: "state updated" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    if (device_id == "D_401")
+      await State.findOneAndUpdate(
+        { device_id },
+        {
+          state: command == 0 ? 102 : 104,
+          command,
+        }
+      )
+        .then((response) => {
+          res.status(201).send({ message: "state updated" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    if (device_id == "D_402")
+      await State.findOneAndUpdate(
+        { device_id },
+        {
+          state: command == 0 ? 0 : 1,
+          command,
+        }
+      )
+        .then((response) => {
+          res.status(201).send({ message: "state updated" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   } catch {}
 };
 
